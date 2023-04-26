@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="col-md-12">
+        <div class="col-md-4">
+            {% if get_flashed_messages() %}
+                <div class="col-md-4"></div>
+                    <div class="alert alert-warning">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <h3 style="color:red"><strong>注意：</strong> {{ get_flashed_messages()[0] }}<strong>:(</strong></h3>
+                    </div>
+                <div class="col-md-4"></div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="col-md-12 form-group well text-center">
+        <form class="well form-horizontal" method="POST">
+            <h2  style="color:#4682B4"><strong>生成边界值</strong></h2>
+            <br><br>
+            <div class="col-md-1"></div>
+            <div class="col-md-1" style="MARGIN: -16px;">
+                <h3>生成</h3>
+            </div>
+            <div class="col-md-3">
+                {{ form.word_lenth(class="form-control",id="word_lenth") }} {#输出的文本长度#}
+            </div>
+
+            <div class="col-md-3">
+                {{ form.word_type(class="btn btn-primary",id="word_type") }} {#文本类型#}
+
+                {{ form .submit_sub(class="btn btn-primary",id="submit_sub") }} {# 提交按钮 #}
+
+                {{ form .reset_sub(class="btn btn-primary",id="submit_sub") }} {# c重置按钮 #}
+            </div>
+
+            <div class="col-md-2">
+                {{ form .punctuation_sub(class="btn btn-primary",id="punctuation_sub") }} {# 生成所有符号按钮 #}
+            </div>
+        </form>
+    </div>
+    {% if opw %}
+        <br><br><br>
+        {% for io in opw %}
+            <div class="text-left" type="col-md-12">{{ io }}</div>
+        {% endfor%}
+    {% endif %}
+
+{% endblock %}

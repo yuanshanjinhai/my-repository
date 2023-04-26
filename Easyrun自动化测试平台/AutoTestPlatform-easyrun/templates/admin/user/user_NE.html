@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% if type == "N" %}
+        <title>新增用户</title>
+    {% elif type == "E" %}
+        <title>修改用户</title>
+    {% endif %}
+</head>
+<body>
+
+{% extends 'base.html' %}
+{% block content %}
+    <div class="col-md-12">
+        {% if get_flashed_messages() %}
+            {% if "成功" not in get_flashed_messages()[0] %}
+                <div class="col-md-7">
+                    <div class="col-md-4"></div>
+                        <div class="alert alert-warning">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            <h3 style="color:red"><strong>注意：</strong> {{ get_flashed_messages()[0] }}<strong>:(</strong></h3>
+                        </div>
+                    <div class="col-md-4"></div>
+                </div>
+            {% else %}
+                <div class="col-md-4">
+                    <div class="col-md-2"></div>
+                        <div class="alert alert-warning">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            <h3 style="color:green">{{ get_flashed_messages()[0] }}<strong>:)</strong></h3>
+                        </div>
+                    <div class="col-md-4"></div>
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+
+    <div class="col-md-12 form-group text-center">
+        <form class="form-horizontal" method="POST">
+
+        {% if type=='N' %}
+            <h3 class="col-md-12  text-center" style="color:#4682B4"><strong>新增用户</strong></h3>
+            <br><br>
+        {% elif type == "E" %}
+            <h3 class="col-md-12  text-center" style="color:#4682B4"><strong>编辑用户</strong></h3>
+            <br><br>
+        {% endif %}
+
+            <div class="col-md-12 form-group well text-center">
+                <div class="col-md-2"></div>
+                <label class="col-md-1 control-label">用户登录名</label>
+                <div class="col-md-3">
+                    {{ form.user_login_name(class="form-control",id="user_login_name") }} {# 用户登录名输入框 #}
+                </div>
+                <label class="col-md-1 control-label">用户名称</label>
+                <div class="col-md-3">
+                    {{ form.user_name(class="form-control",id="user_name") }} {# 用户名输入框 #}
+                </div>
+            </div>
+
+            <br>
+
+            <div class="col-md-12 form-group well text-center">
+                <div class="col-md-2"></div>
+                <label class="col-md-1 control-label">对应角色</label>
+                <div class="col-md-7">
+                    {{ form.role(class="form-control",id="role") }} {# 角色下拉框 #}
+                </div>
+            </div>
+
+            <br>
+
+            <div class="col-md-12 form-group well text-center">
+                <div class="col-md-2"></div>
+                {% if type =="N" %}
+                    <h4 class="col-md-12  text-center" style="color:#6CA6CD"><strong>密码默认：123456</strong></h4>
+                {% elif type == "E" %}
+                    <label class="col-md-1 control-label">修改密码</label>
+                    <div class="col-md-3">
+                        {{ form.is_update_password(class="form-control",id="is_update_password") }} {# 是否修改密码 #}
+                    </div>
+                    <label class="col-md-1 control-label">新密码</label>
+                    <div class="col-md-3">
+                        {{ form.new_password(class="form-control",id="new_password") }} {# 新密码 #}
+                    </div>
+                {% endif %}
+            </div>
+
+            <br>
+
+            {{ form .submit_sub(class="btn btn-primary",id="submit_sub")}} {# 提交按钮 #}
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button type="reset" class="btn btn-primary"><span class="glyphicon glyphicon-repeat"></span> 重置</button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a class="btn btn-primary" href={{url_for('user.user_list',page_no=page_no,offset=offset,limit=limit,user_id=user_id)}} role="button"><span class="glyphicon glyphicon-share-alt"></span> 返回</a>
+        </form>
+        <br>
+    </div>
+
+{% endblock %}
+
+</body>
+</html>

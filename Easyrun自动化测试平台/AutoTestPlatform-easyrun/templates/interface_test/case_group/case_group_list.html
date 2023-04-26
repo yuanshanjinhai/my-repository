@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用例组管理</title>
+</head>
+<body>
+
+{% extends 'base.html' %}
+{% block content %}
+
+<form class="well form-horizontal" enctype="multipart/form-data" method="POST">
+
+    <div class="col-md-12">
+        <div class="col-md-4">
+            {% if get_flashed_messages() %}
+                <div class="col-md-4"></div>
+                    <div class="alert alert-warning">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <h3 style="color:red"><strong>注意：</strong> {{ get_flashed_messages()[0] }}</h3>
+                    </div>
+                <div class="col-md-4"></div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="delete_alert" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">删除</h4>
+                </div>
+                <div class="modal-body">
+                    你将删除该用例组，删除后不可恢复，确认删除？
+                </div>
+                    <div class="modal-footer">
+                    <script>
+                        function initial_form_data(target){
+                            $("#myid").attr("value", $(target).attr("data-id"));
+                        };
+                    </script>
+                        {{ form .get_id(id="myid",type="hidden") }} {# 获取id输入框（隐藏的） #}
+                        {{ form .delete_sub(class="btn btn-primary",id="delete_sub") }} {# 删除用例按钮 #}
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">放弃删除</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<h3 class="col-md-12  text-center" style="color:#4682B4"><strong>用例组管理</strong></h3>
+    <br><br><br><br>
+
+    <div class="col-md-12">
+        <div class="col-md-1">
+            <a class="btn btn-primary" href={{url_for('case_group.case_group_NEC',product_name=product_name,page_no=page_no,offset=offset,limit=limit,type='N',case_group_id=0)}} role="button"><span class="glyphicon glyphicon-plus-sign"></span> 新增</a>
+        </div>
+
+        <div class="col-md-4">
+            {{ form.product_name(class="form-control",id="product_name") }} {#项目名称下拉框#}
+        </div>
+            {{ form.search_sub(class="btn btn-primary",id="search_sub") }} {#搜索按钮#}
+        </div>
+    </div>
+
+    <br><br><br>
+
+    <div class="bs-example" data-example-id="striped-table">
+        <table  class="table table-striped" sytle="table-layout:fixed">
+            <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>是否执行</th>
+                    <th>项目名称</th>
+                    <th>用例组名称</th>
+                    <th>顺序</th>
+                    <th>用例组类型</th>
+                    <th>说明</th>
+                    <th>操&nbsp;&nbsp;&nbsp;作</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if data_list != [] %}
+                    {% for ida in data_list %}
+                        <tr>
+                            <td style="word-break:break-all" width="20">{{loop.index}}</td>
+                            <td style="word-break:break-all" width="20">{{ida.is_run}}</td>
+                            <td style="word-break:break-all" width="60">{{ida.product_name}}</td>
+                            <td style="word-break:break-all" width="60">{{ida.case_group_name}}</td>
+                            <td style="word-break:break-all" width="30">{{ida.case_group_order}}</td>
+                            <td style="word-break:break-all" width="30">{{ida.case_group_type}}</td>
+                            <td style="word-break:break-all" width="100">{{ida.case_group_explain}}</td>
+                            <td style="word-break:break-all" width="40">
+                                <a href={{url_for('case_group.case_group_NEC',product_name=product_name,page_no=page_no,offset=offset,limit=limit,type='E',case_group_id=ida.id)}}><span class="glyphicon glyphicon-edit"></span></a> {#编辑#}
+                                &nbsp;&nbsp;
+                                <a href={{url_for('case_group.case_group_NEC',product_name=product_name,page_no=page_no,offset=offset,limit=limit,type='C',case_group_id=ida.id)}}><span class="glyphicon glyphicon-duplicate"></span></a> {#复制#}
+                                &nbsp;&nbsp;
+                                <a onclick="initial_form_data(this);" data-id={{ ida.id }} data-toggle="modal" data-target="#delete_alert">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </a> {#删除#}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+
+    {% if data_list != [] %}
+        <div class="col-md-12">
+            <div class="col-md-4"></div>
+            <div class="col-md-3 well text-center">
+
+                <a class="btn btn-primary" href={{url_for('case_group.case_group_list',product_name=product_name,page_no=page_no-1,offset=offset-limit,limit=limit,case_group_id=case_group_id)}} role="button">上一页</a> {#上一页按钮#}
+                    第{{ page_no }}页 {#第几页#}
+                    共{{ total_pages }}页 {#共几页#}
+                <a class="btn btn-primary" href={{url_for('case_group.case_group_list',product_name=product_name,page_no=page_no+1,offset=offset+limit,limit=limit,case_group_id=case_group_id)}} role="button">下一页</a> {#下一页按钮#}
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+    {% else %}
+        <h4 class="well text-center" style="color:#C1C1C1"><strong>未录入用例组</strong></h4>
+    {% endif %}
+</form>
+
+{% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="col-md-12">
+        <div class="col-md-4">
+            {% if get_flashed_messages() %}
+                <div class="col-md-4"></div>
+                    <div class="alert alert-warning">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <h3 style="color:red"><strong>注意：</strong> {{ get_flashed_messages()[0] }}<strong>:(</strong></h3>
+                    </div>
+                <div class="col-md-4"></div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="col-md-12 form-group well text-center">
+        <form class="well form-horizontal" method="POST">
+            <h2  style="color:#4682B4"><strong>查询字符串长度</strong></h2>
+            <br><br>
+            <div class="col-md-1"></div>
+            <div class="col-md-3" style="MARGIN: -16px;">
+                <h3>请输入被查字符串</h3>
+            </div>
+            <div class="col-md-4">
+                {{ form.str_(class="form-control",id="word_lenth") }} {# 被查询字符串 #}
+            </div>
+
+            <div class="col-md-3">
+                {{ form .submit_sub(class="btn btn-primary",id="submit_sub") }} {# 提交按钮 #}
+
+                {{ form .reset_sub(class="btn btn-primary",id="submit_sub") }} {# c重置按钮 #}
+            </div>
+
+        </form>
+    </div>
+    {% if str_len %}
+        <br><br><br>
+        <div class="text-left" type="col-md-12 form-group well text-center">
+            <div class="col-md-5"></div>
+            <h2  style="color:#4682B4"><strong>{{ str_len }}</strong></h2>
+        </div>
+    {% endif %}
+
+{% endblock %}

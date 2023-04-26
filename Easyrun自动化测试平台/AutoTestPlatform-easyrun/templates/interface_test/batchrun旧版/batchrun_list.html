@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<form class="well form-horizontal" enctype="multipart/form-data" id="case_updownloads_form" method="POST">
+    {% if get_flashed_messages() %}
+        {% if get_flashed_messages()[0][-1]=="0" %}
+            <div class="text-left col-md-12 alert alert-danger">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <h3 style="color:red"><strong>注意：</strong> {{ get_flashed_messages()[0][0:-1] }} <strong>:(</strong></h3>
+            </div>
+
+        {% elif get_flashed_messages()[0][-1]=="1" %}
+            <div class="text-left col-md-4 alert alert-success">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <h3 style="color:green">{{ get_flashed_messages()[0][0:-1] }} <strong>:)</strong></h3>
+            </div>
+
+        {% elif get_flashed_messages()[0][-1]=="2" %}
+            <div class="text-left col-md-4 alert alert-info">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <h3 style="color:green">{{ get_flashed_messages()[0][0:-1] }} </h3>
+            </div>
+        {% endif %}
+    {% endif %}
+
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="delete_alert" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">删除</h4>
+                </div>
+                <div class="modal-body">
+                    <h4>你将删除所选产品下的所有用例，<strong>删除后不可恢复!</strong> 请确认是否</h4>
+                    <h4>已下载，确认删除？</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <div class="col-md-12">
+        <div class="col-md-1">
+            {{ form.upload_sub(class="btn btn-primary")}}  {# 上传按钮 #}
+        </div>
+        <div class="col-md-4">
+            {{ form.select_file(class="btn btn-primary",id="selectfile_sub") }} {# 选择附件按钮 #}
+        </div>
+        <div class="col-md-3" style="MARGIN: -16px;">
+            <h2 style="color:#4682B4"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;批量执行</strong></h2>
+        </div>
+    </div>
+
+    <br><br><br>
+    <div class="col-md-12">
+        <div class="col-md-1">
+            {{ form .check_case_sub(class="btn btn-primary")}} {# 校验用例 #}
+        </div>
+        <div class="col-md-1">
+            {{ form.is_urldecode(class="btn btn-primary",id="is_urldecode")}}  {# 是否url解码下拉框 #}
+        </div>
+    </div>
+
+    <br><br><br>
+    <div class="col-md-12">
+        <div class="col-md-1">
+            {{ form .run_case_sub(class="btn btn-primary")}} {# 执行用例 #}
+        </div>
+    </div>
+
+    <br><br><br>
+    <div class="col-md-12">
+        <div class="col-md-1">
+            {{ form .download_execute_sub(class="btn btn-primary")}} {# 下载执行结果按钮 #}
+        </div>
+    </div>
+
+    <br><br><br>
+    <div class="col-md-12">
+        <div class="col-md-1">
+            {{ form .download_template_sub(class="btn btn-primary",id="download_template_sub")}} {# 下载模板 #}
+        </div>
+    </div>
+
+    <br><br><br>
+    <div class="col-md-2">
+        <div class="col-md-1">
+            <a class="btn btn-primary" href=#}} role="button"><span class="glyphicon glyphicon-share-alt"></span>&nbsp &nbsp返&nbsp回</a>
+        </div>
+    </div>
+</form>
+
+{% endblock %}

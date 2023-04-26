@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% if type == "N" %}
+        <title>新增用例组</title>
+    {% elif type == "E" %}
+        <title>修改用例组</title>
+    {% elif type == "C" %}
+        <title>复制新增用例组</title>
+    {% endif %}
+</head>
+<body>
+
+{% extends 'base.html' %}
+{% block content %}
+    <div class="col-md-12">
+        {% if get_flashed_messages() %}
+            {% if "成功" not in get_flashed_messages()[0] %}
+                <div class="col-md-7">
+                    <div class="col-md-4"></div>
+                        <div class="alert alert-warning">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            <h3 style="color:red"><strong>注意：</strong> {{ get_flashed_messages()[0] }}<strong>:(</strong></h3>
+                        </div>
+                    <div class="col-md-4"></div>
+                </div>
+            {% else %}
+                <div class="col-md-4">
+                    <div class="col-md-2"></div>
+                        <div class="alert alert-warning">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            <h3 style="color:green">{{ get_flashed_messages()[0] }}<strong>:)</strong></h3>
+                        </div>
+                    <div class="col-md-4"></div>
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+
+    <div class="col-md-12 form-group text-center">
+        <form class="form-horizontal" method="POST">
+
+        {% if type=='N' %}
+            <h3 class="col-md-12  text-center" style="color:#4682B4"><strong>新增用例组</strong></h3>
+            <br><br>
+        {% endif %}
+
+        {% if type == "E" %}
+            <h3 class="col-md-12  text-center" style="color:#4682B4"><strong>编辑用例组</strong></h3>
+            <br><br>
+        {% endif %}
+
+        {% if type == "C" %}
+            <h3 class="col-md-12  text-center" style="color:#4682B4"><strong>复制新增用例组</strong></h3>
+            <br><br>
+        {% endif %}
+
+            <div class="col-md-12 form-group well text-center">
+                <div class="col-md-2"></div>
+                <label class="col-md-1 control-label">项目名称&nbsp;&nbsp;&nbsp;</label>
+                <div class="col-md-3">
+                    {{ form.product_name(class="form-control",id="product_name") }} {#项目名称下拉框#}
+                </div>
+
+                <label class="col-md-1 control-label">用例组名称</label>
+                <div class="col-md-3">
+                    {{ form.case_group_name(class="form-control",id="case_group_name") }} {#用例组名称#}
+                </div>
+            </div>
+
+            <br><br>
+
+            <div class="col-md-12 form-group well text-center">
+                <div class="col-md-2"></div>
+                <label class="col-md-1 control-label">用例组顺序</label>
+                <div class="col-md-3">
+                    {% if type !="E" or type == "C" %}
+                        <div class="text-left"><h4 style="color:#6CA6CD"><strong>自动生成</strong></h4></div>
+                    {% else %}
+                        {{ form.case_group_order(class="form-control",id="case_group_type") }} {#用例组顺序#}
+                    {% endif %}
+                </div>
+
+                <label class="col-md-1 control-label">用例组类型</label>
+                <div class="col-md-3">
+                    {{ form.case_group_type(class="form-control",id="case_group_type") }} {#用例组类型#}
+                </div>
+            </div>
+
+            <br><br>
+
+            <div class="col-md-12 form-group well text-center">
+                <div class="col-md-2"></div>
+                <label class="col-md-1 control-label">是否执行&nbsp;&nbsp;&nbsp;</label>
+                <div class="col-md-7">
+                    {{ form.is_run(class="form-control",id="is_run") }}
+                </div>
+            </div>
+
+            <div class="col-md-12 form-group well text-center">
+                <div class="col-md-2"></div>
+                <label class="col-md-1 control-label">用例组说明</label>
+                <div class="col-md-7">
+                    {{ form.case_group_explain(class="form-control",id="case_group_explain") }}
+                </div>
+            </div>
+
+            <br><br><br>
+
+            {{ form .submit_sub(class="btn btn-primary",id="submit_sub")}} {# 提交按钮 #}
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button type="reset" class="btn btn-primary"><span class="glyphicon glyphicon-repeat"></span> 重置</button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a class="btn btn-primary" href={{url_for('case_group.case_group_list',product_name=product_name,page_no=page_no,offset=offset,limit=limit,case_group_id=case_group_id)}} role="button"><span class="glyphicon glyphicon-share-alt"></span> 返回</a>
+        </form>
+        <br>
+    </div>
+
+{% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户管理</title>
+</head>
+<body>
+
+{% extends 'base.html' %}
+{% block content %}
+
+<form class="well form-horizontal" method="POST">
+
+    <div class="col-md-12">
+        <div class="col-md-4">
+            {% if get_flashed_messages() %}
+                <div class="col-md-4"></div>
+                    <div class="alert alert-warning">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <h3 style="color:red"><strong>注意：</strong> {{ get_flashed_messages()[0] }}</h3>
+                    </div>
+                <div class="col-md-4"></div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="delete_alert" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">删除</h4>
+                </div>
+                <div class="modal-body">
+                    你将删除该用户，删除后不可恢复，确认删除？
+                </div>
+                    <div class="modal-footer">
+                    <script>
+                        function initial_form_data(target){
+                            $("#myid").attr("value", $(target).attr("data-id"));
+                        };
+                    </script>
+                        {{ form .get_id(id="myid",type="hidden") }} {# 获取id输入框（隐藏的） #}
+                        {{ form .delete_sub(class="btn btn-primary",id="delete_sub") }} {# 删除用例按钮 #}
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">放弃删除</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<h3 class="col-md-12  text-center" style="color:#4682B4"><strong>用户管理</strong></h3>
+    <br><br><br><br>
+
+    <div class="col-md-12">
+        <div class="col-md-1">
+            <a class="btn btn-primary" href={{url_for('user.user_NE',page_no=page_no,offset=offset,limit=limit,type='N',user_id=0)}} role="button"><span class="glyphicon glyphicon-plus-sign"></span> 新增</a>
+        </div>
+
+        <div class="col-md-4">
+            {{ form.user_name_inputbox(class="form-control",id="user_name_inputbox") }} {# 用户名输入框 #}
+        </div>
+
+        <div class="col-md-1">
+            {{ form.search_sub(class="btn btn-primary",id="search_sub") }} {# 搜索按钮 #}
+        </div>
+    </div>
+
+    <br><br><br>
+
+    <div class="bs-example" data-example-id="striped-table">
+        <table  class="table table-striped" sytle="table-layout:fixed">
+            <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>用户登录名</th>
+                    <th>用户名</th>
+                    <th>对应角色</th>
+                    <th>操&nbsp;&nbsp;&nbsp;作</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if data_list != [] %}
+                    {% for ida in data_list %}
+                        <tr>
+                            <td style="word-break:break-all" width="20">{{loop.index}}</td>
+                            <td style="word-break:break-all" width="60">{{ida[1]}}</td>
+                            <td style="word-break:break-all" width="60">{{ida[2]}}</td>
+                            <td style="word-break:break-all" width="60">{{ida[3]}}</td>
+                            <td style="word-break:break-all" width="40">
+                                <a href={{url_for('user.user_NE',page_no=page_no,offset=offset,limit=limit,type='E',user_id=ida[0])}}><span class="glyphicon glyphicon-edit"></span></a> {#编辑#}
+                                &nbsp;&nbsp;
+                                <a onclick="initial_form_data(this);" data-id={{ ida[0] }} data-toggle="modal" data-target="#delete_alert">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </a> {#删除#}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+
+    {% if data_list != [] %}
+        <div class="col-md-12">
+            <div class="col-md-4"></div>
+            <div class="col-md-3 well text-center">
+
+                <a class="btn btn-primary" href={{url_for('user.user_list',page_no=page_no-1,offset=offset-limit,limit=limit,user_id=user_id)}} role="button">上一页</a> {#上一页按钮#}
+                    第{{ page_no }}页 {#第几页#}
+                    共{{ total_pages }}页 {#共几页#}
+                <a class="btn btn-primary" href={{url_for('user.user_list',page_no=page_no+1,offset=offset+limit,limit=limit,user_id=user_id)}} role="button">下一页</a> {#下一页按钮#}
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+    {% else %}
+        <h4 class="well text-center" style="color:#C1C1C1"><strong>无相关用户</strong></h4>
+    {% endif %}
+</form>
+
+{% endblock %}
+
+</body>
+</html>

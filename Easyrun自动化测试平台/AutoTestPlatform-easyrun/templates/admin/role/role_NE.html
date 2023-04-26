@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% if type == "N" %}
+        <title>新增角色</title>
+    {% elif type == "E" %}
+        <title>修改角色</title>
+    {% endif %}
+</head>
+<body>
+
+{% extends 'base.html' %}
+{% block content %}
+    <div class="col-md-12">
+        {% if get_flashed_messages() %}
+            {% if "成功" not in get_flashed_messages()[0] %}
+                <div class="col-md-7">
+                    <div class="col-md-4"></div>
+                        <div class="alert alert-warning">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            <h3 style="color:red"><strong>注意：</strong> {{ get_flashed_messages()[0] }}<strong>:(</strong></h3>
+                        </div>
+                    <div class="col-md-4"></div>
+                </div>
+            {% else %}
+                <div class="col-md-4">
+                    <div class="col-md-2"></div>
+                        <div class="alert alert-warning">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            <h3 style="color:green">{{ get_flashed_messages()[0] }}<strong>:)</strong></h3>
+                        </div>
+                    <div class="col-md-4"></div>
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+
+    <div class="col-md-12 form-group text-center">
+        <form class="form-horizontal" method="POST">
+
+        {% if type=='N' %}
+            <h3 class="col-md-12  text-center" style="color:#4682B4"><strong>新增角色</strong></h3>
+            <br><br>
+        {% elif type == "E" %}
+            <h3 class="col-md-12  text-center" style="color:#4682B4"><strong>编辑角色</strong></h3>
+            <br><br>
+        {% endif %}
+
+            <div class="col-md-12 form-group well text-center">
+                <div class="col-md-2"></div>
+                <label class="col-md-1 control-label">角色名称</label>
+                <div class="col-md-7">
+                    {{ form.role_name(class="form-control",id="role_name") }} {# 角色名 #}
+                </div>
+            </div>
+            <div class="col-md-12 form-group well text-center">
+                <div class="col-md-2"></div>
+                <label class="col-md-4 control-label">对应资源（已列出全量，请按需删减，并用中文分号隔开）</label>
+            </div>
+                <br>
+            <div class="col-md-12 text-center">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    {{ form.resource_str(class="form-control",cols=2,rows=6,id="resource_str") }} {# 所有资源字符串 #}
+                </div>
+            </div>
+
+            {{ form .submit_sub(class="btn btn-primary",id="submit_sub")}} {# 提交按钮 #}
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button type="reset" class="btn btn-primary"><span class="glyphicon glyphicon-repeat"></span> 重置</button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a class="btn btn-primary" href={{url_for('role.role_list',page_no=page_no,offset=offset,limit=limit,role_id=role_id)}} role="button"><span class="glyphicon glyphicon-share-alt"></span> 返回</a>
+        </form>
+        <br>
+    </div>
+
+{% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用例批量执行</title>
+</head>
+<body>
+
+{% extends 'base.html' %}
+{% block content %}
+
+<form class="well form-horizontal" enctype="multipart/form-data" method="POST">
+
+    <div class="col-md-12">
+        <div class="col-md-12">
+            {% if get_flashed_messages() %}
+                <div class="col-md-4"></div>
+                    <div class="alert alert-warning">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <h3 style="color:red"><strong>注意：</strong> {{ get_flashed_messages()[0] }}</h3>
+                    </div>
+                <div class="col-md-4"></div>
+            {% endif %}
+        </div>
+    </div>
+
+<h3 class="col-md-12  text-center" style="color:#4682B4"><strong>用例批量执行</strong></h3>
+    <br><br><br><br>
+
+    <div class="col-md-12">
+
+        <div class="col-md-3">
+            {{ form.product_name(class="form-control",id="product_name") }} {#项目名称下拉框#}
+        </div>
+
+        <div class="col-md-1">
+            {{ form.search_sub(class="btn btn-primary",id="search_sub") }} {#搜索按钮#}
+        </div>
+
+        <div class="col-md-1">
+            {{ form.run_case_sub(class="btn btn-primary",id="run_case_sub") }} {#用例执行按钮#}
+        </div>
+
+        <div class="col-md-1">
+        </div>
+
+    </div>
+
+    <br><br><br>
+
+    <div class="bs-example" data-example-id="striped-table">
+        <table  class="table table-striped" sytle="table-layout:fixed">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>项目名称</th>
+                    <th>用例组</th>
+                    <th>顺序</th>
+                    <th>对应接口</th>
+                    <th>用例名称</th>
+                    <th>地址</th>
+                    <th>请求体</th>
+                    <th>预期返回值</th>
+                    <th>操 作</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if data_list != [] %}
+                    {% for ida in data_list %}
+                        <tr>
+                            <td style="word-break:break-all" width="5">{{loop.index}}</td> {# 序号 #}
+
+                            <td style="word-break:break-all" width="40">{{ida[1]}}</td> {# 项目名称 #}
+
+                            <td style="word-break:break-all" width="40">{{ida[2]}}</td> {# 用例组 #}
+
+                            <td style="word-break:break-all" width="5">{{ida[3]}}</td> {# 顺序 #}
+
+                            <td style="word-break:break-all" width="40">{{ida[4]}}</td> {# 接口 #}
+
+                            <td style="word-break:break-all" width="40">{{ida[5]}}</td> {# 用例名称 #}
+
+                            <td style="word-break:break-all" width="60">{{ida[6]}}</td> {# 地址 #}
+
+                            <td style="word-break:break-all" width="80">{{ida[7]}}</td> {# 请求体 #}
+
+                            <td style="word-break:break-all" width="80">{{ida[8]}}</td> {# 预期返回值 #}
+
+                            <td style="word-break:break-all" width="40">
+<!--                                <a href={{url_for('case.case_NVEC',product_name=product_name,case_group=0,interface_name=0,page_no=page_no,offset=offset,limit=limit,type='V',case_id=ida[0])}}><span class="glyphicon glyphicon-eye-open"></span></a> {#查看#}-->
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+
+    {% if data_list != [] %}
+        <div class="col-md-12">
+            <div class="col-md-4"></div>
+            <div class="col-md-3 well text-center">
+
+                <a class="btn btn-primary" href={{url_for('run_case.run_case_list',product_name=product_name,page_no=page_no-1,offset=offset-limit,limit=limit,case_id=case_id)}} role="button">上一页</a> {#上一页按钮#}
+                    第{{ page_no }}页 {#第几页#}
+                    共{{ total_pages }}页 {#共几页#}
+                <a class="btn btn-primary" href={{url_for('run_case.run_case_list',product_name=product_name,page_no=page_no+1,offset=offset+limit,limit=limit,case_id=case_id)}} role="button">下一页</a> {#下一页按钮#}
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+    {% else %}
+        <h4 class="well text-center" style="color:#C1C1C1"><strong>未录入用例</strong></h4>
+    {% endif %}
+</form>
+
+{% endblock %}
+
+</body>
+</html>

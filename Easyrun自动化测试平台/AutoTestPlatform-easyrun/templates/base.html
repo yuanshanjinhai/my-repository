@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Easyrun</title>
+    <link href="/static/css/bootstrap.css" rel="stylesheet">
+    <script src="/static/jquery.min.js"></script>
+    <script src="/static/js/bootstrap.js"></script>
+</head>
+
+<body>
+    <!-- 模态框（Modal） -->
+      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+         <div class="modal-dialog">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  <h4 class="modal-title" id="myModalLabel">退出</h4>
+               </div>
+               <div class="modal-body">
+                  你将退出，确定退出？
+               </div>
+               <div class="modal-footer">
+                  <button type="button" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-remove-sign"></span> 不退出</button>
+                  <a class="btn btn-primary" href={{url_for('login.login')}} role="button"><span class="glyphicon glyphicon-new-window"></span> 确定退出</a> {# 退出按钮 #}
+               </div>
+            </div>
+         </div>
+      </div>
+
+<!--    <div class="col-md-12">-->
+<!--        <div class="col-md-2"> </div>-->
+<!--        <div class="col-md-8">-->
+<!--            <h2 class="well text-center" style="color:#4682B4"><strong>Easyrun  自动化测试平台 </strong></h2>-->
+<!--        </div>-->
+<!--        <div class="col-md-2">-->
+<!--            <h5 class="text-left" style="color:#4682B4"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你好：{{ session["user_name"] }}</strong></h5>-->
+<!--        </div>-->
+<!--    </div>-->
+    <h2 class="well text-center" style="color:#4682B4"><strong>Easyrun  自动化测试平台 </strong></h2>
+    <h4 class="text-left" style="color:#4682B4"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你好：{{ session["user_name"] }}</strong></h4>
+
+    <nav class="well navbar navbar-default">
+        <div class="container-fluid">
+
+            {% if 'home' in session["user_resource_list"] %}
+                <div class="btn-group">
+                    <a class="btn btn-primary" href={{url_for('home.home')}} role="button"><span class="glyphicon glyphicon-bed"></span> 首页</a>
+                </div>
+                &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+            {% endif %}
+            {% if "interface" in session["user_resource_list"]  %}
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="glyphicon glyphicon-transfer"></span> 接口自动化
+                    <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        {% if "interface-singlerun" in session["user_resource_list"] %}
+                            <li><a href={{url_for('singlerun.singlerun_main')}}>单接口执行</a></li>
+                            <li role="separator" class="divider"></li>
+                        {% endif %}
+                        {% if "interface-interface" in session["user_resource_list"]  %}
+                            <li><a href={{url_for('interface.interface_list',product_name="全部项目",page_no=1,offset=0,limit=5,interface_id=0)}}>接口管理</a></li>
+                        {% endif %}
+                        {% if "interface-case_group" in session["user_resource_list"]  %}
+                            <li><a href={{url_for('case_group.case_group_list',product_name="全部项目",page_no=1,offset=0,limit=5,case_group_id=0)}}>用例组管理</a></li>
+                        {% endif %}
+                        {% if "interface-global" in session["user_resource_list"]  %}
+                            <li><a href={{url_for('global_var.global_var_list',product_name="全部项目",page_no=1,offset=0,limit=5,global_var_id=0)}}>全局变量管理</a></li>
+                        {% endif %}
+                        {% if "interface-encypt_decypt" in session["user_resource_list"]  %}
+                            <li><a href={{url_for('encrypt_decrypt.encrypt_decrypt_list',page_no=1,offset=0,limit=5,encrypt_decrypt_id=0)}}>加解与解密文件管理</a></li>
+                        {% endif %}
+                        {% if "interface-case" in session["user_resource_list"]  %}
+                            <li><a href={{url_for('case.case_list',product_name="全部项目",page_no=1,offset=0,limit=10,case_id=0)}}>用例管理</a></li>
+                            <li role="separator" class="divider"></li>
+                        {% endif %}
+                        {% if "interface-run" in session["user_resource_list"]  %}
+                            <li><a href={{url_for('run_case.run_case_list',product_name="全部项目",page_no=1,offset=0,limit=10,case_id=0)}}>用例批量执行</a></li>
+                        {% endif %}
+                        {% if "interface-result" in session["user_resource_list"]  %}
+                            <li><a href=#>执行结果统计</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+                &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+            {% endif %}
+
+            {% if "tools" in session["user_resource_list"]  %}
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="glyphicon glyphicon-wrench"></span> 工具集
+                    <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        {% if "tools-creat_boundart" in session["user_resource_list"]  %}
+                            <li><a href={{url_for('boundary.creat_boundary',username='guolin',token=1)}}>生成边界值</a></li>
+                        {% endif %}
+                        {% if "tools-str_len" in session["user_resource_list"]  %}
+                            <li><a href={{url_for('tools_strlen.str_len',username='guolin',token=1)}}>查询字符串长度</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+                &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+            {% endif %}
+
+            {% if "help" in session["user_resource_list"] %}
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="glyphicon glyphicon-question-sign"></span> 帮助
+                    <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        {% if "help-case_rule" in session["user_resource_list"] %}
+                            <li><a href={{url_for('CaseRule.case_rule',username=username,token=token)}}>用例规则</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+                &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+            {% endif %}
+
+            {% if "admin" in session["user_resource_list"] %}
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="glyphicon glyphicon-cog"></span> 系统管理
+                    <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        {% if "admin-product" in session["user_resource_list"] %}
+                            <li><a href={{url_for('product.product_list',page_no=1,offset=0,limit=5,product_id=0)}}>项目管理</a></li>
+                        {% endif %}
+                        {% if "admin-user" in session["user_resource_list"] %}
+                            <li><a href={{url_for('user.user_list',page_no=1,offset=0,limit=5,user_id=0)}}>用户管理</a></li>
+                        {% endif %}
+                        {% if "admin-role" in session["user_resource_list"] %}
+                            <li><a href={{url_for('role.role_list',page_no=1,offset=0,limit=5,role_id=0)}}>角色管理</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+                &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+            {% endif %}
+            <div class="btn-group">
+                <button class="btn btn-primary" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-share"></span> 退出</button>
+<!--                <a class="btn btn-primary" href={{url_for('home.home')}} role="button"><span class="glyphicon glyphicon-new-window" data-target="#myModal"></span> 退出</a>-->
+            </div>
+        </div>
+    </nav>
+
+{% block content %}
+
+{% endblock %}
+
+<div class="well text-center">Easyrun  自动化测试平台  &nbsp;&nbsp; V 3.0</div>
+</body>
+
+

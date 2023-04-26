@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Easyrun</title>
+    <link href="/static/css/bootstrap.css" rel="stylesheet">
+    <script src="/static/jquery.min.js"></script>
+    <script src="/static/js/bootstrap.js"></script>
+</head>
+<body>
+    <br>
+    <h1 class="col-md-12 well text-center" style="color:#4682B4"><strong>Easyrun 自动化测试平台</strong></h1>
+    <br><br><br>
+
+    <div class="form-group well text-center">
+        {% if get_flashed_messages() %}
+            <div class="col-md-4"></div>
+                <div class="text-center col-md-4 alert alert-warning">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <h3 style="color:red"><strong>注意：</strong> {{ get_flashed_messages()[0] }} <strong>:(</strong></h3>
+                </div>
+            <div class="col-md-4"></div>
+        {% endif %}
+
+        <div class="col-md-12">
+            <br><br>
+            <form class="well form-horizontal" method="POST">
+                <div class="col-md-4"></div>
+                    <label class="col-md-1 control-label">用户名：</label>
+                <div class="col-md-3">
+                    {{form.username(class="form-control",id="username",placeholder="请输入账号")}}
+                </div>
+                <br><br>
+                <div class="col-md-4"></div>
+                <label class="col-md-1 control-label">密 &nbsp &nbsp码：</label>
+                <div class="col-md-3">
+                    {{form.password(class="form-control",id="password",placeholder="请输入密码")}}
+                </div>
+                <br><br><br><br>
+
+                <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-log-in"></span> 登录</button>
+                &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                <button type="reset" class="btn btn-primary"><span class="glyphicon glyphicon-repeat"></span> 重置</button>
+                &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                <a class="btn btn-primary" href={{url_for('login.updatepassword')}} role="button"><span class="glyphicon glyphicon-scissors"></span> 修改密码</a>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

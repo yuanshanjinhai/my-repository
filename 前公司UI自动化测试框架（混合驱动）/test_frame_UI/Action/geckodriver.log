@@ -1,0 +1,71 @@
+1564458792680	geckodriver	INFO	geckodriver 0.20.1
+1564458792697	geckodriver	INFO	Listening on 127.0.0.1:6164
+1564458795725	mozrunner::runner	INFO	Running command: "D:\\Firefox\\F55\\F\\firefox.exe" "-marionette" "-profile" "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\rust_mozprofile.ctAeNTEkJgS5"
+1564458797097	Marionette	INFO	Enabled via --marionette
+Unable to read VR Path Registry from C:\Users\Administrator\AppData\Local\openvr\openvrpaths.vrpath
+[GPU 7952] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+Unable to read VR Path Registry from C:\Users\Administrator\AppData\Local\openvr\openvrpaths.vrpath
+[Child 10380] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+1564458799203	Marionette	INFO	Listening on port 6172
+1564458799213	Marionette	INFO	Listening on port 6172
+1564458799421	Marionette	WARN	TLS certificate errors will be ignored for this session
+1564458799455	Marionette	DEBUG	loaded listener.js
+1564458799493	Marionette	DEBUG	Received DOM event "beforeunload" for "about:blank"
+1564458799643	Marionette	DEBUG	Received DOM event "pagehide" for "about:blank"
+1564458799644	Marionette	DEBUG	Received DOM event "unload" for "about:blank"
+1564458800393	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://auto.sohu.com/?spm=smpc.home.top-nav.16.1563954956354TULkzpy"
+Unable to read VR Path Registry from C:\Users\Administrator\AppData\Local\openvr\openvrpaths.vrpath
+JavaScript warning: http://2e8e0e8870826.cdn.sohucs.com/static/jquery-1.10.2.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript error: http://images.sohu.com/bill/s2018/passion/0907/passion.min.js, line 11: TypeError: e.get_xy is not a function
+1564458802584	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://go.sohu.com/2019/xgyxauto/ceshi001.html"
+1564458802880	Marionette	DEBUG	Received DOM event "pageshow" for "http://go.sohu.com/2019/xgyxauto/ceshi001.html"
+1564458804277	Marionette	DEBUG	Received DOM event "pageshow" for "http://auto.sohu.com/?spm=smpc.home.top-nav.16.1563954956354TULkzpy"
+[GPU 7952] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[GPU 7952] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+Unable to read VR Path Registry from C:\Users\Administrator\AppData\Local\openvr\openvrpaths.vrpath
+rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+1564459009883	Marionette	INFO	Listening on port 6457
+1564459009891	Marionette	INFO	Listening on port 6457
+1564459010147	Marionette	WARN	TLS certificate errors will be ignored for this session
+1564459010184	Marionette	DEBUG	loaded listener.js
+1564459010253	Marionette	DEBUG	Received DOM event "beforeunload" for "about:blank"
+1564459010496	Marionette	DEBUG	Received DOM event "pagehide" for "about:blank"
+1564459010496	Marionette	DEBUG	Received DOM event "unload" for "about:blank"
+1564459011882	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://auto.sohu.com/?spm=smpc.home.top-nav.16.1563954956354TULkzpy"
+Unable to read VR Path Registry from C:\Users\Administrator\AppData\Local\openvr\openvrpaths.vrpath
+JavaScript warning: http://2e8e0e8870826.cdn.sohucs.com/static/jquery-1.10.2.min.js, line 1: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+1564459015118	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://go.sohu.com/2019/xgyxauto/ceshi001.html"
+1564459015123	Marionette	DEBUG	Received DOM event "pageshow" for "http://go.sohu.com/2019/xgyxauto/ceshi001.html"
+1564459015309	Marionette	DEBUG	Received DOM event "pageshow" for "http://auto.sohu.com/?spm=smpc.home.top-nav.16.1563954956354TULkzpy"
+[GPU 9264] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 10660] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[GPU 9264] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+Unable to read VR Path Registry from C:\Users\Administrator\AppData\Local\openvr\openvrpaths.vrpath
+1564462545208	geckodriver	INFO	geckodriver 0.20.1
+1564462545221	geckodriver	INFO	Listening on 127.0.0.1:6781
+1564462548248	mozrunner::runner	INFO	Running command: "D:\\Firefox\\F55\\F\\firefox.exe" "-marionette" "-profile" "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\rust_mozprofile.VqNGEJ23ByPg"
+1564462549602	Marionette	INFO	Enabled via --marionette
+Unable to read VR Path Registry from C:\Users\Administrator\AppData\Local\openvr\openvrpaths.vrpath
+[GPU 10548] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+Unable to read VR Path Registry from C:\Users\Administrator\AppData\Local\openvr\openvrpaths.vrpath
+[Child 10948] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 10948] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+1564462551625	Marionette	INFO	Listening on port 6789
+1564462551635	Marionette	INFO	Listening on port 6789
+1564462551934	Marionette	WARN	TLS certificate errors will be ignored for this session
+1564462551970	Marionette	DEBUG	loaded listener.js
+1564462552010	Marionette	DEBUG	Received DOM event "beforeunload" for "about:blank"
+1564462552137	Marionette	DEBUG	Received DOM event "pagehide" for "about:blank"
+1564462552138	Marionette	DEBUG	Received DOM event "unload" for "about:blank"
+Unable to read VR Path Registry from C:\Users\Administrator\AppData\Local\openvr\openvrpaths.vrpath
+JavaScript warning: http://192.168.70.248:8083/portal/login/jm3/resources/scripts/prototypePost.js, line 11024: unreachable code after return statement
+1564462552509	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "http://192.168.70.248:8083/portal/"
+1564462552642	Marionette	DEBUG	Received DOM event "pageshow" for "http://192.168.70.248:8083/portal/"
+1564462552957	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1564462556413	addons.productaddons	WARN	Failed downloading via XHR, status: 0, reason: error
+[Child 8120] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+[Child 8120] WARNING: pipe error: 109: file c:/builds/moz2_slave/m-rel-w64-00000000000000000000/build/src/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 346
+Unable to read VR Path Registry from C:\Users\Administrator\AppData\Local\openvr\openvrpaths.vrpath

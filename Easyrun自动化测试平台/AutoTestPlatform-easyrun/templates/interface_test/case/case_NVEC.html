@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% if type == "N" %}
+        <title>新增用例</title>
+    {% elif type == "E" %}
+        <title>修改用例</title>
+    {% elif type == "C" %}
+        <title>复制新增用例</title>
+    {% endif %}
+</head>
+<body>
+
+{% extends 'base.html' %}
+{% block content %}
+    <div class="col-md-12">
+        {% if get_flashed_messages() %}
+            {% if "成功" not in get_flashed_messages()[0] %}
+                <div class="col-md-7">
+                    <div class="col-md-4"></div>
+                        <div class="alert alert-warning">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            <h3 style="color:red"><strong>注意：</strong> {{ get_flashed_messages()[0] }}<strong>:(</strong></h3>
+                        </div>
+                    <div class="col-md-4"></div>
+                </div>
+            {% else %}
+                <div class="col-md-4">
+                    <div class="col-md-2"></div>
+                        <div class="alert alert-warning">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            <h3 style="color:green">{{ get_flashed_messages()[0] }}<strong>:)</strong></h3>
+                        </div>
+                    <div class="col-md-4"></div>
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+
+    <div class="col-md-12 form-group text-center">
+        <form class="form-horizontal" method="POST">
+
+            {% if type=='N' %}
+                <h3 class="col-md-12  text-center" style="color:#4682B4"><strong>新增用例</strong></h3>
+                <br><br>
+            {% endif %}
+
+            {% if type == "V" %}
+                <h3 class="col-md-12  text-center" style="color:#4682B4"><strong>查看用例</strong></h3>
+                <br><br>
+            {% endif %}
+
+            {% if type == "E" %}
+                <h3 class="col-md-12  text-center" style="color:#4682B4"><strong>编辑用例</strong></h3>
+                <br><br>
+            {% endif %}
+
+            {% if type == "C" %}
+                <h3 class="col-md-12  text-center" style="color:#4682B4"><strong>复制新增用例</strong></h3>
+                <br><br>
+            {% endif %}
+
+            <div class="col-md-12 form-group well text-center">
+                <div class="col-md-2"></div>
+                <label class="col-md-1 control-label">项目名称</label>
+                <div class="col-md-3">
+                    {% if type == "V" %}
+                        {{ data_list[0] }}
+                    {% else %}
+                        {{ form.product_name(class="form-control",id="product_name") }} {#项目名称下拉框#}
+                    {% endif %}
+                </div>
+
+                <div class="col-md-1">
+                    {% if "$" not in case_name %}
+                        {% if type != "V" %}
+                            {{ form.S1_sub(class="form-control",id="S0_sub") }} {# S0_sub #}
+                        {% endif %}
+                    {% endif %}
+                </div>
+
+                <label class="col-md-1 control-label">用例组名称</label>
+                <div class="col-md-3">
+                    {% if type == "V" %}
+                        {{ data_list[1] }}
+                    {% elif type == "N" %}
+                        {% if case_group == 0 %}
+                            <div class="text-left"><h4 style="color:#6CA6CD"><strong>点击 ①～＞ 带出</strong></h4></div> {# 用例组名称 #}
+                        {% else %}
+                            {{ form.case_group(class="form-control",id="case_group") }}
+                        {% endif %}
+                    {% elif type == "E" or type == "C" %}
+                        {{ form.case_group(class="form-control",id="case_group") }}
+                    {% endif %}
+                </div>
+            </div>
+
+            <br><br>
+
+            <div class="col-md-12 form-group well text-center">
+                <div class="col-md-2"></div>
+                <label class="col-md-1 control-label">对应接口</label>
+                <div class="col-md-3">
+                    {% if "$" not in case_name %}
+                        {% if type == "V" %}
+                            {{ data_list[2] }}
+                        {% elif type == "N" %}
+                            {% if interface_name == 0 %}
+                                <div class="text-left"><h4 style="color:#6CA6CD"><strong>点击 ①～＞ 带出</strong></h4></div> {# 对应接口 #}
+                            {% else %}
+                                {{ form.interface_name(class="form-control",id="interface_name") }}
+                            {% endif %}
+                        {% else %}
+                            {{ form.interface_name(class="form-control",id="interface_name") }}
+                        {% endif %}
+                    {% endif %}
+                </div>
+
+                <div class="col-md-1">
+                    {% if "$" not in case_name %}
+                        {% if type == "N" %}
+                            {% if is_add_s1 == 1 %}
+                                {{ form.S2_sub(class="form-control",id="S2_sub") }} {# S2_sub #}
+                            {% endif %}
+                        {% else %}
+                            {% if type != "V" %}
+                                {{ form.S2_sub(class="form-control",id="S2_sub") }}
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+                </div>
+
+                <label class="col-md-1 control-label">方法</label>
+                <div class="col-md-3">
+                    {% if "$" not in case_name %}
+                        {% if type == "V" %}
+                            {{ data_list[3] }}
+                        {% elif type == "N" %}
+                            {% if method == 0 %}
+                                <div class="text-left"><h4 style="color:#6CA6CD"><strong>点击 ②～＞ 带出</strong></h4></div>
+                            {% else %}
+                                <div class="text-left"><h4 style="color:#6CA6CD"><strong>{{ method }}</strong></h4></div> {# 方法 #}
+                            {% endif %}
+                        {% elif type == "E" or type == "C" %}
+                            {% if method == 0 %}
+                                <div class="text-left"><h4 style="color:#6CA6CD"><strong>点击 ②～＞ 带出</strong></h4></div>
+                            {% else %}
+                                <div class="text-left"><h4 style="color:#6CA6CD"><strong>{{ method }}</strong></h4></div> {# 方法 #}
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+
+                </div>
+            </div>
+
+            <br><br>
+
+            <div class="col-md-12 form-group well text-center">
+                <div class="col-md-2"></div>
+                <label class="col-md-1 control-label">接口地址</label>
+                <div class="col-md-8">
+                    {% if "$" not in case_name %}
+                        {% if type == "V" %}
+                            {{ data_list[4] }}
+                        {% else %}
+                            {{ form.interface_address(class="form-control",id="interface_address") }} {# 接口地址 #}
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+
+            <br><br>
+
+            <div class="col-md-12 form-group well text-center">
+                <div class="col-md-2"></div>
+                <label class="col-md-1 control-label">用例名称</label>
+                <div class="col-md-3">
+                    {% if type == "V" %}
+                        {{ data_list[5] }}
+                    {% else %}
+                        {{ form.case_name(class="form-control",id="case_name") }} {# 用例名称 #}
+                    {% endif %}
+                </div>
+
+                <div class="col-md-1"></div>
+
+                <label class="col-md-1 control-label">用例顺序</label>
+                <div class="col-md-3">
+                    {% if type == "V" %}
+                        {{ data_list[6] }}
+                    {% else %}
+                        {% if type !="E" or type == "C" %}
+                            <div class="text-left"><h4 style="color:#6CA6CD"><strong>自动生成</strong></h4></div>
+                        {% else %}
+                            {{ form.case_order(class="form-control",id="case_order") }} {#用例顺序#}
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+
+            <br><br>
+
+            <div class="col-md-12 form-group well text-center">
+                <div class="col-md-2"></div>
+                <label class="col-md-1 control-label">编码/加解密</label>
+                <div class="col-md-3">
+                    {% if "$" not in case_name %}
+                        {% if type == "V" %}
+                            {{ data_list[7] }}
+                        {% else %}
+                            {{ form.is_urlencode_pwd(class="form-control",id="is_urlencode_pwd") }} {# 编码与加解密 #}
+                        {% endif %}
+                    {% endif %}
+                </div>
+
+                <div class="col-md-1"></div>
+
+                <label class="col-md-1 control-label">加解密文件</label>
+                <div class="col-md-3">
+                    {% if "$" not in case_name %}
+                        {% if type == "V" %}
+                            {{ data_list[8] }}
+                        {% else %}
+                            {{ form.encrypt_decrypt_file(class="form-control",id="encrypt_decrypt_file") }} {# 加解密文件 #}
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+
+            <br><br>
+
+            <div class="col-md-12 form-group well text-center">
+                <div class="col-md-2"></div>
+                <label class="col-md-1 control-label">用例说明</label>
+                <div class="col-md-8">
+                    {% if type == "V" %}
+                        {{ data_list[9] }}
+                    {% else %}
+                        {{ form.case_explain(class="form-control",id="case_explain") }} {# 用例说明 #}
+                    {% endif %}
+                </div>
+            </div>
+
+            <br><br>
+
+            <div class="col-md-12 form-group well text-left">
+                <div class="col-md-2"></div>
+                <label class="col-md-1 control-label">请求头</label>
+                <div class="col-md-8">
+                    {% if type == "V" %}
+                        {{ data_list[10] }}
+                    {% else %}
+                        {{ form.header(class="form-control",id="header") }} {# 请求头 #}
+                    {% endif %}
+                </div>
+            </div>
+
+            <br><br>
+
+            <div class="col-md-12 form-group well text-left">
+                <div class="col-md-2"></div>
+                <label class="col-md-1 control-label">请求体</label>
+                <div class="col-md-8">
+                    {% if type == "V" %}
+                        {{ data_list[11] }}
+                    {% else %}
+                        {{ form.body(class="form-control",id="body",rows=5) }} {# 请求体 #}
+                    {% endif %}
+                </div>
+            </div>
+
+            <br><br>
+
+            <div class="col-md-12 form-group well text-left">
+                <div class="col-md-2"></div>
+                <label class="col-md-1 control-label">预期返回值</label>
+                <div class="col-md-8">
+                    {% if type == "V" %}
+                        {{ data_list[12] }}
+                    {% else %}
+                        {{ form.expect_response(class="form-control",id="expect_response",rows=5) }} {# 预期返回值 #}
+                    {% endif %}
+                </div>
+            </div>
+
+            <br><br><br>
+
+            {% if type != "V" %}
+                {{ form .submit_sub(class="btn btn-primary",id="submit_sub")}} {# 提交按钮 #}
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <button type="reset" class="btn btn-primary"><span class="glyphicon glyphicon-repeat"></span> 重置</button>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a class="btn btn-primary" href={{url_for('case.case_list',product_name=product_name,page_no=page_no,offset=offset,limit=limit,case_id=case_id)}} role="button"><span class="glyphicon glyphicon-share-alt"></span> 返回</a>
+            {% else %}
+                <a class="btn btn-primary" href={{url_for('case.case_list',product_name=product_name,page_no=page_no,offset=offset,limit=limit,case_id=case_id)}} role="button"><span class="glyphicon glyphicon-share-alt"></span> 返回</a>
+            {% endif %}
+        </form>
+        <br>
+    </div>
+
+{% endblock %}
+
+</body>
+</html>

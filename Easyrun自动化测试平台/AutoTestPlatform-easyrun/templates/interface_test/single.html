@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>单接口执行</title>
+</head>
+<body>
+{% extends 'base.html' %}
+{% block content %}
+
+<form class="well form-horizontal" enctype="multipart/form-data" id="case_updownloads_form" method="POST">
+    {% if get_flashed_messages() %}
+        {% if get_flashed_messages()[0][-1]=="0" %}
+            <div class="text-left col-md-12 alert alert-danger">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <h3 style="color:red"><strong>注意：</strong> {{ get_flashed_messages()[0][0:-1] }} <strong>:(</strong></h3>
+            </div>
+
+        {% elif get_flashed_messages()[0][-1]=="1" %}
+            <div class="text-left col-md-4 alert alert-success">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <h3 style="color:green">{{ get_flashed_messages()[0][0:-1] }} <strong>:)</strong></h3>
+            </div>
+
+        {% elif get_flashed_messages()[0][-1]=="2" %}
+            <div class="text-left col-md-4 alert alert-info">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <h3 style="color:green">{{ get_flashed_messages()[0][0:-1] }} </h3>
+            </div>
+        {% endif %}
+    {% endif %}
+
+    <h2 class="text-center" style="color:#4682B4"><strong>单接口执行</strong></h2>
+
+    <br>
+
+    <div class="col-md-12">
+        <div class="col-md-1">
+            {{ form.method(class="btn btn-primary",id="method")}}  {# 方法下拉框 #}
+        </div>
+
+        <div class="col-md-1"></div>
+
+        <div class="col-md-4">
+            <h4 style="float:left;color:#4682B4"><strong>编解码/加解密</strong>&nbsp;</h4>
+            {{ form.is_urlencode_pwd(class="btn btn-primary",id="is_urlencode_pwd")}}  {# 编码与加解密下拉框 #}
+        </div>
+
+        <div class="col-md-2">
+            <h4 style="float:left;color:#4682B4"><strong>文件</strong>&nbsp;</h4>
+            {{ form.encrypt_decrypt_file(class="btn btn-primary",id="encrypt_decrypt_file")}}  {# 加解密文件下拉框 #}
+        </div>
+
+         <div class="col-md-1">
+            {{ form.run_sub(class="btn btn-primary",id="selectfile_sub",style="float:right") }} {# 执行按钮 #}
+        </div>
+        <div class="col-md-1">
+            <button type="reset" class="btn btn-primary"><span class="glyphicon glyphicon-repeat"></span> 重置</button>
+        </div>
+        <div class="col-md-1">
+            <a class="btn btn-primary" href=#}} role="button"><span class="glyphicon glyphicon-share-alt"></span> 返&nbsp回</a>
+        </div>
+    </div>
+
+
+    <br><br><br><br>
+    <div class="col-md-12">
+        <div class="col-md-2" style="MARGIN: -10px;">
+            <h4 style="color:#4682B4">请求地址：</h4>
+        </div>
+        <div class="col-md-10">
+            {{ form .address(class="form-control",rows=3)}} {# 地址输入框 #}
+        </div>
+    </div>
+
+    <br><br>
+    <div class="col-md-12">
+        <div class="col-md-2" style="MARGIN: -10px;">
+            <h4 style="color:#4682B4">请求头：</h4>
+        </div>
+        <div class="col-md-10">
+            {{ form .heaer(class="form-control",rows=3)}} {# 请求头输入框 #}
+        </div>
+    </div>
+
+    <br><br><br>
+    <div class="col-md-12">
+        <div class="col-md-7" style="MARGIN: -16px;">
+            <h4 style="color:#4682B4">请求体：</h4>
+        </div>
+        <div class="col-md-5" style="MARGIN: -16px;">
+            <h4 style="color:#4682B4">返回值：</h4>
+        </div>
+    </div>
+    <br>
+    <div class="col-md-6">
+        {{ form .body(class="form-control",cols=2,rows=10)}} {# 请求体输入框 #}
+    </div>
+    <div class="col-md-6">
+        {{ form .response(class="form-control",rows=10)}} {# 返回值显示框 #}
+    </div>
+
+</form>
+
+<br><br><br><br><br><br><br><br><br>
+
+{% endblock %}
+</body>
+</html>

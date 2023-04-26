@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% if type == "N" %}
+        <title>新增接口</title>
+    {% elif type == "E" %}
+        <title>修改接口</title>
+    {% elif type == "C" %}
+        <title>复制新增接口</title>
+    {% endif %}
+</head>
+<body>
+
+{% extends 'base.html' %}
+{% block content %}
+    <div class="col-md-12">
+        {% if get_flashed_messages() %}
+            {% if "成功" not in get_flashed_messages()[0] %}
+                <div class="col-md-7">
+                    <div class="col-md-4"></div>
+                        <div class="alert alert-warning">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            <h3 style="color:red"><strong>注意：</strong> {{ get_flashed_messages()[0] }}<strong>:(</strong></h3>
+                        </div>
+                    <div class="col-md-4"></div>
+                </div>
+            {% else %}
+                <div class="col-md-4">
+                    <div class="col-md-2"></div>
+                        <div class="alert alert-warning">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            <h3 style="color:green">{{ get_flashed_messages()[0] }}<strong>:)</strong></h3>
+                        </div>
+                    <div class="col-md-4"></div>
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+
+    <div class="col-md-12 form-group text-center">
+        <form class="form-horizontal" method="POST">
+
+        {% if type=='N' %}
+            <h3 class="col-md-12  text-center" style="color:#4682B4"><strong>新增接口</strong></h3>
+            <br><br>
+        {% endif %}
+
+        {% if type == "E" %}
+            <h3 class="col-md-12  text-center" style="color:#4682B4"><strong>编辑接口</strong></h3>
+            <br><br>
+        {% endif %}
+
+        {% if type == "C" %}
+            <h3 class="col-md-12  text-center" style="color:#4682B4"><strong>复制新增接口</strong></h3>
+            <br><br>
+        {% endif %}
+
+            <div class="col-md-12 form-group well text-center">
+                <div class="col-md-2"></div>
+                <label class="col-md-1 control-label">项目名称</label>
+                <div class="col-md-3">
+                    {{ form.product_name(class="form-control",id="product_name") }} {#项目名称下拉框#}
+                </div>
+
+                <label class="col-md-1 control-label">接口名称</label>
+                <div class="col-md-3">
+                    {{ form.interface_name(class="form-control",id="interface_name") }} {#接口名称#}
+                </div>
+            </div>
+
+            <br><br>
+
+            <div class="col-md-12 form-group  text-center">
+                <div class="col-md-2"></div>
+                <label class="col-md-1 control-label">接口顺序</label>
+                <div class="col-md-3">
+                    {% if type !="E" or type == "C" %}
+                        <div class="text-left"><h4 style="color:#6CA6CD"><strong>自动生成</strong></h4></div>
+                    {% else %}
+                        {{ form.interface_order(class="form-control",id="interface_order") }} {#接口顺序#}
+                    {% endif %}
+                </div>
+                <label class="col-md-1 control-label">接口方法</label>
+                <div class="col-md-3">
+                    {{ form.interface_method(class="form-control",id="interface_method") }} {#接口方法#}
+                </div>
+            </div>
+
+            <div class="col-md-12 form-group well text-center">
+                <div class="col-md-2"></div>
+                <label class="col-md-1 control-label">接口地址</label>
+                <div class="col-md-7">
+                    {{ form.interface_address(class="form-control",id="interface_address") }} {#接口地址#}
+                </div>
+            </div>
+
+            <br><br>
+
+            <div class="col-md-12 form-group  text-center">
+                <div class="col-md-2"></div>
+                <label class="col-md-1 control-label">接口说明</label>
+                <div class="col-md-7">
+                    {{ form.interface_explain(class="form-control",id="interface_explain") }}
+                </div>
+            </div>
+
+            <br><br><br>
+
+            {{ form .submit_sub(class="btn btn-primary",id="submit_sub")}} {# 提交按钮 #}
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button type="reset" class="btn btn-primary"><span class="glyphicon glyphicon-repeat"></span> 重置</button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a class="btn btn-primary" href={{url_for('interface.interface_list',product_name=product_name,page_no=page_no,offset=offset,limit=limit,interface_id=interface_id)}} role="button"><span class="glyphicon glyphicon-share-alt"></span> 返回</a>
+        </form>
+        <br>
+    </div>
+
+{% endblock %}
+
+</body>
+</html>

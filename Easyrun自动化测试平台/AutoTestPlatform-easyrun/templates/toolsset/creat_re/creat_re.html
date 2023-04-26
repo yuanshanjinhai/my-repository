@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="col-md-12">
+        <div class="col-md-4">
+            {% if get_flashed_messages() %}
+                <div class="col-md-4"></div>
+                    <div class="alert alert-warning">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <h3 style="color:red"><strong>注意：</strong> {{ get_flashed_messages()[0] }}<strong>:(</strong></h3>
+                    </div>
+                <div class="col-md-4"></div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="col-md-12 form-group well text-center">
+        <form class="well form-horizontal" method="POST">
+            <h2  style="color:#4682B4"><strong>生成正则</strong></h2>
+            <br><br>
+
+            <div class="col-md-12">
+                <div class="col-md-2" style="MARGIN: -16px;">
+                    <h3>直接匹配</h3>
+                </div>
+                <div class="col-md-6">
+                    {{ form.match0(class="form-control",id="match0",placeholder="被匹配字符串") }} {#被匹配字符串0#}
+                </div>
+                <div class="col-md-3"></div>
+                <div class="col-md-1">
+                    {{ form .submit_sub0(class="btn btn-primary",id="submit_sub0") }} {# 提交按钮0 #}
+                </div>
+            </div>
+
+            <br><br><br>
+
+            <div class="col-md-12">
+                <div class="col-md-2" style="MARGIN: -16px;">
+                    <h3>边界匹配</h3>
+                </div>
+
+                <div class="col-md-2">
+                    {{ form.re_left(class="form-control",id="re_left",placeholder="左边界") }} {#左边界#}
+                </div>
+
+                <div class="col-md-4">
+                    {{ form.match1(class="form-control",id="match1",placeholder="被匹配字符串") }} {# 被匹配字符串1 #}
+                </div>
+
+                <div class="col-md-2">
+                    {{ form.re_right(class="form-control",id="re_right",placeholder="右边界") }} {#右边界#}
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-1">
+                    {{ form .submit_sub1(class="btn btn-primary",id="submit_sub1") }} {# 提交按钮1 #}
+                </div>
+            </div>
+
+            <br><br><br>
+
+            <div class="col-md-12">
+                <div class="col-md-2" style="MARGIN: -16px;">
+                    <h3>用例匹配</h3>
+                </div>
+                <div class="col-md-8">
+                    {{ form.match2(class="form-control",id="match0",placeholder="被匹配字符串") }} {# 被匹配字符串2 #}
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-1">
+                    {{ form .submit_sub2(class="btn btn-primary",id="submit_sub2") }} {# 提交按钮2 #}
+                </div>
+            </div>
+
+            <br>
+        </form>
+    </div>
+    {% if opw %}
+        <br><br><br>
+        <div class="text-left" type="col-md-12">{{ opw }}</div>
+    {% endif %}
+
+{% endblock %}

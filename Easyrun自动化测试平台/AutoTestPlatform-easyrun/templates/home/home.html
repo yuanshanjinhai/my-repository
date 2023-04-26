@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+</head>
+<body>
+    {% extends 'base.html' %}
+    {% block content %}
+        {% if "user_resource_list" not in session or "user_login_name" not in session or "user_name" not in session %}
+            {{url_for('login.login')}}
+        {% endif %}
+        <br>
+        <div class="col-md-1"></div><h4 class="text-left" style="color:#4682B4"><strong>Easyrun自动化测试平台：</strong></h4>
+        <br>
+        <div class="col-md-1"></div><h4 class="text-left" style="color:#4682B4"><strong>直观……</strong></h4>
+        <br>
+        <h4 class="text-left" style="color:#4682B4"><strong>高效……</strong></h4>
+        <br>
+        <h4 class="text-left" style="color:#4682B4"><strong>易上手……</strong></h4>
+        <br>
+        <br>
+        <br>
+        <br>
+    {% endblock %}
+</body>
+</html>
+

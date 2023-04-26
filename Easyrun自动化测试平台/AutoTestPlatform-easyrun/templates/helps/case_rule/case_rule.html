@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<br>
+
+<div class="bs-example" data-example-id="striped-table">
+    <table  class="table table-bordered" sytle="table-layout:fixed">
+        <thead>
+            <tr>
+                <th>符号</th>
+                <th>用法说明</th>
+                <th>适用范围</th>
+             </tr>
+        </thead>
+        <tbody>
+            {% for ida in deta_list %}
+                <tr>
+                    <td style="word-break:break-all" width="10">{{ida[0]}}</td>
+                    <td style="word-break:break-all" width="300">
+                        {% for i in ida[1] %}
+                            {{i}}
+                            <br>
+                        {% endfor %}
+                    </td>
+                    <td style="word-break:break-all" width="20">{{ida[2]}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
