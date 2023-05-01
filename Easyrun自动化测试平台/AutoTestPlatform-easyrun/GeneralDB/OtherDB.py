@@ -10,7 +10,6 @@ def GetProductNameList():
     return r_list
 
 def GetProduct_id_by_product_name(product_name):
-    print('product_name]',product_name)
     product_id = db.session.query(System_Product.id).filter(System_Product.product_name == product_name).first()[0]
     return product_id
 

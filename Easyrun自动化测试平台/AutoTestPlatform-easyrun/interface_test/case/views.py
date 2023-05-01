@@ -179,6 +179,17 @@ class CaseNVEC(MethodView):
     def get(self,product_name,case_group,interface_name,page_no,offset,limit,type,case_id):
         offset = int(offset)
         limit = int(limit)
+        page_no = int(page_no)
+        offset = int(offset)
+        if product_name == '全部项目':
+            flash('请选择项目；')
+            total_pages = count_total_pages(limit)
+            case_list = GetCaseList_product_name(product_name, offset, limit)
+            self.ins_CaseListForm.product_name.choices = GetProductNameList_TestCaseList()
+            return redirect(url_for("case.case_list", form=self.ins_CaseListForm,
+                                   data_list=case_list,
+                                   product_name=product_name, page_no=page_no, total_pages=total_pages, offset=offset,
+                                   limit=limit, case_id=case_id))
         self.ins_CaseNVEC_Form.product_name.choices = GetProductNameList()
         self.ins_CaseNVEC_Form.case_group.choices = GetCaseGroupList(product_name)
         if case_id != "0":

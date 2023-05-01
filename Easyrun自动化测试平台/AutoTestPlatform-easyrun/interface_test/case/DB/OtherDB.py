@@ -344,7 +344,6 @@ def GetCaseGroup0RelationNameList():
     return r
 
 def GetCaseGroupList(product_name):
-    print(111111111111111111111)
     if product_name == '全部项目':
         r = None
     product_id = GetProduct_id_by_product_name(product_name)
